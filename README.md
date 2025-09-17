@@ -131,3 +131,33 @@ This solver and its design follow the exposition in:
 
 The Newton–Raphson formulation in the code aligns with the standard derivation and methodology discussed in Monticelli’s work on power system state estimation and load flow analysis.
 
+
+# Stochastic Subspace Identification for Power System Stability
+
+## What the code does
+
+The provided Python code (`ssi_cva_power.py`) implements **stochastic subspace identification (SSI)** using the canonical variate algorithm (CVA) for power systems. It processes time-series measurement data (e.g., generator powers, bus voltages) under small random load variations to identify critical oscillatory modes. These identified modes are then used to compute a **stability index (SISI)** that predicts the proximity of the system to oscillatory instability without requiring large disturbances.
+
+---
+
+## The linear algebra method we are solving
+
+The algorithm is based on **subspace identification techniques**, which make heavy use of:
+
+* **Block Hankel matrices** to organize past and future measured outputs.
+* **QR factorization and Singular Value Decomposition (SVD)** to extract system order and dominant modes.
+* **Least-squares solutions** for estimating state-space matrices ($A_d, C$).
+
+At its core, the method reduces to repeatedly applying SVD to projection matrices to determine the system’s modal content and then computing eigenvalues of the identified state matrix. These eigenvalues are used to evaluate damping ratios and predict Hopf bifurcation points.
+
+---
+
+## The paper this implementation is based on
+
+This implementation is based on the paper:
+
+**Hassan Ghasemi, Claudio Cañizares, and Ali Moshref (2006).** *Oscillatory Stability Limit Prediction Using Stochastic Subspace Identification.* IEEE Transactions on Power Systems. Accepted September 2005【47†revised.dvi】.
+
+The paper introduces the use of stochastic subspace identification with CVA to extract critical modes directly from measured ambient signals and defines a **System Identification Stability Index (SISI)** for online stability monitoring.
+
+
