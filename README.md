@@ -90,3 +90,44 @@ This implementation is based on the paper:
 **Abdullahi Bala Kunya (2024).** *Hierarchical bi-level load frequency control for multi-area interconnected power systems*. International Journal of Electrical Power and Energy Systems, 155, 109600. \[DOI: 10.1016/j.ijepes.2023.109600]【28†files\_uploaded\_in\_conversation】
 
 The paper proposes a **supervisory LQR–PI control scheme** for multi-area LFC, demonstrating improved performance in stability, robustness, and disturbance handling compared to classical PI-only approaches.
+
+
+# 3) Newton–Raphson Power Flow Solver
+
+## What the code does
+
+The provided Python scripts (`nr_powerflow_solvers.py` and `run_nr.py`) implement a **Newton–Raphson (NR) based power flow solver** for electric power systems. The solver computes the steady-state operating point of a transmission network by iteratively solving the nonlinear algebraic equations governing active and reactive power balances at each bus. The code:
+
+* Builds bus admittance matrices.
+* Defines mismatch equations for power balance.
+* Iteratively applies the NR method to update bus voltage magnitudes and phase angles until convergence.
+* Provides results for bus voltages, power injections, and line flows.
+
+---
+
+## The linear algebra method we are solving
+
+The underlying method is the **Newton–Raphson method applied to nonlinear power flow equations**. At each iteration, the following linear system is solved:
+
+$$
+J(x_k) \Delta x = -F(x_k)
+$$
+
+where:
+
+* $F(x_k)$ is the mismatch vector of active/reactive power equations,
+* $J(x_k)$ is the Jacobian matrix of partial derivatives,
+* $\Delta x$ is the correction to the state vector (bus voltage magnitudes and angles).
+
+This reduces the nonlinear power flow problem into repeated solutions of linear systems until the mismatches are within tolerance.
+
+---
+
+## The paper this implementation is based on
+
+This solver and its design follow the exposition in:
+
+**Monticelli, A. (1985).** *State Estimation in Electric Power Systems: A Generalized Approach*. KTH Royal Institute of Technology. \[Full text PDF provided]【37†files\_uploaded\_in\_conversation】
+
+The Newton–Raphson formulation in the code aligns with the standard derivation and methodology discussed in Monticelli’s work on power system state estimation and load flow analysis.
+
