@@ -60,3 +60,33 @@ If you use this code, please cite the paper and acknowledge this implementation:
   year={2014}
 }
 ```
+
+# Load Frequency Control with Hierarchical Bi-Level Approach
+
+## What the code does
+
+The provided Python code (`load_freq.py`) simulates **Load Frequency Control (LFC)** in a multi-area interconnected power system. It models system frequency deviations, tie-line power flows, and applies controllers to maintain system stability under disturbances. Specifically, it implements a **hierarchical control strategy**, where proportional–integral (PI) controllers operate at the lower level and are tuned/optimized, while a supervisory control layer guides these PI controllers using optimal control principles.
+
+---
+
+## The linear algebra method we are solving
+
+The code applies the **Linear Quadratic Regulator (LQR)** method for optimal control design. LQR solves a **quadratic optimization problem** on the state-space representation of the interconnected power system:
+
+$$
+\min J = \int (x^T Q x + u^T R u) dt
+$$
+
+subject to the linear state-space model $\dot{x} = Ax + Bu$.
+
+The LQR provides optimal state-feedback gains $K$, which set reference signals for the lower-level PI controllers. A **Kalman filter** is also used for state estimation when not all states are measurable.
+
+---
+
+## The paper this implementation is based on
+
+This implementation is based on the paper:
+
+**Abdullahi Bala Kunya (2024).** *Hierarchical bi-level load frequency control for multi-area interconnected power systems*. International Journal of Electrical Power and Energy Systems, 155, 109600. \[DOI: 10.1016/j.ijepes.2023.109600]【28†files\_uploaded\_in\_conversation】
+
+The paper proposes a **supervisory LQR–PI control scheme** for multi-area LFC, demonstrating improved performance in stability, robustness, and disturbance handling compared to classical PI-only approaches.
