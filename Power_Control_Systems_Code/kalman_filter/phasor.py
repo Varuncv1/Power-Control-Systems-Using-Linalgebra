@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from dataclasses import dataclass
 
 # ============================================================
-# PARAMETERS — Paste paper numbers here (Ghahremani & Kamwa 2011)
+# PARAMETERS — (Ghahremani & Kamwa 2011)
 # ============================================================
 @dataclass
 class SMIBParams:
