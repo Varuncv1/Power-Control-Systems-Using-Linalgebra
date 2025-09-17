@@ -1,6 +1,6 @@
 # Power-Control-Systems-Using-Linalgebra
 
-# SVD-based Abrupt Change Detection
+# 1) SVD-based Abrupt Change Detection
 
 This repository implements the abrupt change detection heuristic based on the **Singular Value Decomposition (SVD)** of a *history matrix of differences*, following Sanandaji et al.
 
@@ -61,7 +61,7 @@ If you use this code, please cite the paper and acknowledge this implementation:
 }
 ```
 
-# Load Frequency Control with Hierarchical Bi-Level Approach
+# 2) Load Frequency Control with Hierarchical Bi-Level Approach
 
 ## What the code does
 
