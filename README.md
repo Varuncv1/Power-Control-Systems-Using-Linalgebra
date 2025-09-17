@@ -39,13 +39,6 @@ Sanandaji, B. M., Bitar, E., Poolla, K., & Vincent, T. L. (2014). *An Abrupt Cha
 
 > The code mirrors the paper’s construction of $\Delta_t$, tracks $\sigma_1(\Delta_t)$, and uses a robust baseline to decide when a jump indicates a change.
 
----
-
-## File layout
-
-* `svd.py` — main script (CLI) that builds $\Delta_t$, computes $\sigma_1$, thresholds, and plots.
-
----
 
 ## Quick start
 
@@ -54,57 +47,6 @@ Sanandaji, B. M., Bitar, E., Poolla, K., & Vincent, T. L. (2014). *An Abrupt Cha
 ```bash
 python svd.py --demo --win 16 --baseline 200 --k 6 --method mad
 ```
-
-### CSV data
-
-```bash
-python svd.py \
-  --csv your.csv \
-  --time-col time \
-  --channels V1 V2 I1 I2 \
-  --win 16 \
-  --baseline 200 \
-  --k 6 \
-  --method mad \
-  --norm z \
-  --save-prefix out
-```
-
-**Arguments (common):**
-
-* `--win` / `-w` *(int)*: history window length $w$.
-* `--baseline` *(int)*: number of initial pre-change samples used to learn a robust threshold.
-* `--k` *(float)*: scale for robust thresholding (e.g., MAD×k or IQR×k).
-* `--method` *(str)*: robust method (`mad` or `iqr`).
-* `--norm` *(str)*: optional per-channel normalization; `z` = z-score using baseline.
-* `--save-prefix` *(str)*: save plot(s) and outputs with this prefix.
-
-**CSV-specific:**
-
-* `--csv` *(path)*: input file (rows = time, columns = channels).
-* `--time-col` *(str)*: name of timestamp column.
-* `--channels` *(list)*: names of columns to use as measurement channels $y_t$.
-
----
-
-## How the threshold works (paper-faithful)
-
-1. Use the first `--baseline` samples (assumed pre-change) to compute $\sigma_1(\Delta_t)$.
-2. Compute a robust location/scale (e.g., median and MAD or IQR) of these baseline values.
-3. Form a threshold: $\text{thr} = \text{location} + k\,\text{scale}$.
-4. For subsequent times, flag a detection when $\sigma_1(\Delta_t) > \text{thr}$.
-
-This approximates the paper’s theoretical tail bounds with a practical, data-driven rule.
-
----
-
-## Notes & assumptions
-
-* Channels in `--channels` should be synchronized and sampled uniformly.
-* The paper’s analysis assumes **bounded state variation** and **Gaussian measurement noise**; the heuristic remains useful more generally but guarantees rely on those assumptions.
-* Larger `--win` often improves sensitivity under higher noise, but may increase delay.
-
----
 
 ## Citation
 
@@ -118,9 +60,3 @@ If you use this code, please cite the paper and acknowledge this implementation:
   year={2014}
 }
 ```
-
----
-
-## License
-
-MIT (unless otherwise specified).
