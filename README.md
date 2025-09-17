@@ -132,7 +132,7 @@ This solver and its design follow the exposition in:
 The Newton–Raphson formulation in the code aligns with the standard derivation and methodology discussed in Monticelli’s work on power system state estimation and load flow analysis.
 
 
-# Stochastic Subspace Identification for Power System Stability
+# 4) Stochastic Subspace Identification for Power System Stability
 
 ## What the code does
 
